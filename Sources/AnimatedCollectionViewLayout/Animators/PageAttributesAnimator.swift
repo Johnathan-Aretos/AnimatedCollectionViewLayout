@@ -31,6 +31,15 @@ public struct PageAttributesAnimator: LayoutAttributesAnimator {
         }
         
         attributes.transform = transform
-        attributes.zIndex = attributes.indexPath.row
+      
+        var section = attributes.indexPath.section
+        var numItems = 0
+
+        while section >= 0 {
+          numItems += collectionView.numberOfItems(inSection: section)
+          section -= 1
+
+          attributes.zIndex = attributes.indexPath.row + numItems
+        }
     }
 }
